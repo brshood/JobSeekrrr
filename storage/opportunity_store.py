@@ -110,6 +110,7 @@ class OpportunityStore:
                     warm_lead_score REAL DEFAULT 0.0,
                     created_at TEXT DEFAULT '',
                     updated_at TEXT DEFAULT '',
+                    warm_lead_score REAL DEFAULT 0.0,
                     FOREIGN KEY (opportunity_id) REFERENCES opportunities(id)
                 )
             """)
