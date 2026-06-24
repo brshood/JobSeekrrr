@@ -12,7 +12,12 @@ Migration requires shell execution which is blocked in non-interactive mode. Use
 
 ## Task 004
 
-**status: PENDING**
+**status: DONE**
+
+### Report
+- `storage/opportunity_store.py` line 110: added `warm_lead_score REAL DEFAULT 0.0` to `outreach_attempts` CREATE
+- `storage/opportunity_store.py` lines 116–121: migration guard `ALTER TABLE outreach_attempts ADD COLUMN warm_lead_score`
+- `engine/warm_lead.py` line 69: `enrich_contact_warmth` returns `warm_lead_score` as explicit `float` 0–100
 
 ### Goal
 Add a `warm_lead_score` field to the outreach table in `storage/opportunity_store.py` and expose it in `engine/warm_lead.py`.
