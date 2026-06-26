@@ -104,6 +104,7 @@ class OpportunityStore:
                     status TEXT DEFAULT 'pending',
                     draft_message TEXT DEFAULT '',
                     human_gate_required INTEGER DEFAULT 1,
+                    warm_lead_score REAL DEFAULT 0.0,
                     attempted_at TEXT DEFAULT '',
                     response_at TEXT DEFAULT '',
                     notes TEXT DEFAULT '',
@@ -112,6 +113,12 @@ class OpportunityStore:
                     FOREIGN KEY (opportunity_id) REFERENCES opportunities(id)
                 )
             """)
+            try:
+                conn.execute(
+                    "ALTER TABLE outreach_attempts ADD COLUMN warm_lead_score REAL DEFAULT 0.0"
+                )
+            except sqlite3.OperationalError:
+                pass
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_opp_action ON opportunities(recommended_action)"
             )
