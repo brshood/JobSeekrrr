@@ -106,6 +106,7 @@ class OpportunityStore:
                     human_gate_required INTEGER DEFAULT 1,
                     attempted_at TEXT DEFAULT '',
                     response_at TEXT DEFAULT '',
+                    warm_lead_score REAL DEFAULT 0.0,
                     notes TEXT DEFAULT '',
                     created_at TEXT DEFAULT '',
                     updated_at TEXT DEFAULT '',
@@ -124,6 +125,12 @@ class OpportunityStore:
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_opp_job_id ON opportunities(job_id)"
             )
+            try:
+                conn.execute(
+                    "ALTER TABLE outreach_attempts ADD COLUMN warm_lead_score REAL DEFAULT 0.0"
+                )
+            except sqlite3.OperationalError:
+                pass
             conn.commit()
 
     def upsert_opportunity(self, opp: Opportunity) -> str:
