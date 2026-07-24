@@ -104,10 +104,10 @@ class OpportunityStore:
                     status TEXT DEFAULT 'pending',
                     draft_message TEXT DEFAULT '',
                     human_gate_required INTEGER DEFAULT 1,
+                    warm_lead_score REAL DEFAULT 0.0,
                     attempted_at TEXT DEFAULT '',
                     response_at TEXT DEFAULT '',
                     notes TEXT DEFAULT '',
-                    warm_lead_score REAL DEFAULT 0.0,
                     created_at TEXT DEFAULT '',
                     updated_at TEXT DEFAULT '',
                     FOREIGN KEY (opportunity_id) REFERENCES opportunities(id)
