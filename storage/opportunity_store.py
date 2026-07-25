@@ -102,6 +102,7 @@ class OpportunityStore:
                     level INTEGER DEFAULT 1,
                     channel TEXT DEFAULT '',
                     status TEXT DEFAULT 'pending',
+                    warm_lead_score REAL DEFAULT 0.0,
                     draft_message TEXT DEFAULT '',
                     human_gate_required INTEGER DEFAULT 1,
                     attempted_at TEXT DEFAULT '',
