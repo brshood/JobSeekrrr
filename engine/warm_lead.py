@@ -65,9 +65,10 @@ def compute_warm_lead_score(contact: dict, profile: str = "") -> float:
 
 def enrich_contact_warmth(contact: dict, profile: str = "") -> dict:
     """Attach warm_lead_score to a contact dict."""
-    contact = dict(contact)
-    contact["warm_lead_score"] = compute_warm_lead_score(contact, profile)
-    return contact
+    out = dict(contact)
+    score = compute_warm_lead_score(out, profile)
+    out["warm_lead_score"] = float(min(100.0, max(0.0, score)))
+    return out
 
 
 def best_contact_for_job(contacts: list[dict], profile: str = "") -> Optional[dict]:
