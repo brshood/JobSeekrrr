@@ -118,7 +118,7 @@ class OpportunityStore:
                     "ALTER TABLE outreach_attempts ADD COLUMN warm_lead_score REAL DEFAULT 0.0"
                 )
             except sqlite3.OperationalError:
-                pass
+                pass  # column already exists
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_opp_action ON opportunities(recommended_action)"
             )
