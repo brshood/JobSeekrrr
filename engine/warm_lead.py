@@ -67,7 +67,11 @@ def enrich_contact_warmth(contact: dict, profile: str = "") -> dict:
     """Attach warm_lead_score to a contact dict."""
     contact = dict(contact)
     score = compute_warm_lead_score(contact, profile)
+<<<<<<< HEAD
     contact["warm_lead_score"] = float(min(100.0, max(0.0, score)))
+=======
+    contact["warm_lead_score"] = min(100.0, max(0.0, float(score)))
+>>>>>>> 36d11d8c (Task 004: add warm_lead_score to outreach_attempts table)
     return contact
 
 
