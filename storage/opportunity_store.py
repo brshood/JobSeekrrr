@@ -302,6 +302,7 @@ class OpportunityStore:
             "attempted_at": attempt.get("attempted_at") or "",
             "response_at": attempt.get("response_at") or "",
             "notes": attempt.get("notes") or "",
+            "warm_lead_score": float(attempt.get("warm_lead_score") or 0.0),
             "updated_at": now,
         }
         with self._connect() as conn:
