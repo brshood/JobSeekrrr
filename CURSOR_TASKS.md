@@ -30,6 +30,7 @@ Add a `warm_lead_score` field to the outreach table in `storage/opportunity_stor
 3. Do NOT modify any other files.
 
 ### Report
-List the exact lines changed in each file, then set status to DONE.
+- `storage/opportunity_store.py`: lines 110 (`warm_lead_score` in CREATE), 116–121 (`ALTER TABLE` migration guard in `_init_db`).
+- `engine/warm_lead.py`: lines 69–70 (`enrich_contact_warmth` clamps `warm_lead_score` to float 0–100).
 
 ---
