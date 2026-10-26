@@ -107,6 +107,7 @@ class OpportunityStore:
                     attempted_at TEXT DEFAULT '',
                     response_at TEXT DEFAULT '',
                     notes TEXT DEFAULT '',
+                    warm_lead_score REAL DEFAULT 0.0,
                     created_at TEXT DEFAULT '',
                     updated_at TEXT DEFAULT '',
                     warm_lead_score REAL DEFAULT 0.0,
