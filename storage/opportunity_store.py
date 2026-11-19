@@ -131,6 +131,12 @@ class OpportunityStore:
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_opp_job_id ON opportunities(job_id)"
             )
+            try:
+                conn.execute(
+                    "ALTER TABLE outreach_attempts ADD COLUMN warm_lead_score REAL DEFAULT 0.0"
+                )
+            except sqlite3.OperationalError:
+                pass
             conn.commit()
 
     def upsert_opportunity(self, opp: Opportunity) -> str:
@@ -302,6 +308,7 @@ class OpportunityStore:
             "attempted_at": attempt.get("attempted_at") or "",
             "response_at": attempt.get("response_at") or "",
             "notes": attempt.get("notes") or "",
+            "warm_lead_score": float(attempt.get("warm_lead_score") or 0.0),
             "updated_at": now,
         }
         with self._connect() as conn:
