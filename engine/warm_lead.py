@@ -66,8 +66,27 @@ def compute_warm_lead_score(contact: dict, profile: str = "") -> float:
 def enrich_contact_warmth(contact: dict, profile: str = "") -> dict:
     """Attach warm_lead_score to a contact dict."""
     contact = dict(contact)
-    contact["warm_lead_score"] = compute_warm_lead_score(contact, profile)
+    score = compute_warm_lead_score(contact, profile)
+    contact["warm_lead_score"] = float(min(100.0, max(0.0, score)))
     return contact
+
+
+def enrich_outreach_warmth(
+    attempt: dict,
+    contact: Optional[dict] = None,
+    profile: str = "",
+) -> dict:
+    """Attach warm_lead_score (float 0–100) to an outreach attempt dict."""
+    attempt = dict(attempt)
+    if contact:
+        attempt["warm_lead_score"] = enrich_contact_warmth(contact, profile)["warm_lead_score"]
+    else:
+        try:
+            raw = float(attempt.get("warm_lead_score") or 0.0)
+        except (TypeError, ValueError):
+            raw = 0.0
+        attempt["warm_lead_score"] = float(min(100.0, max(0.0, raw)))
+    return attempt
 
 
 def best_contact_for_job(contacts: list[dict], profile: str = "") -> Optional[dict]:
